@@ -18,6 +18,7 @@
   width: 15%;
   height: 100%;
   box-shadow: 0 0 1px;
+  border-radius: 0 0 10px;
   float: left;
 }
 

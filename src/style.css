@@ -15,7 +15,7 @@
 button {
     width: fit-content;
     padding: 10px 20px;
-    height: 30px;
+    height: fit-content;
     line-height: 10px;
     background-color: rgba(136, 236, 204, 0.4);
     border-radius: 5px;

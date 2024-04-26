@@ -2,6 +2,22 @@
 
 import Navbar from "./Navbar.vue";
 import StudentContent from "./StudentContent.vue";
+import {onMounted} from "vue";
+import request from "../request";
+import {useStudentStore} from "../stores/useStudentStore.ts";
+
+let student = useStudentStore().student;
+
+async function getStudentInfo() {
+  let {data} = await request.get("/student/info")
+  Object.assign(student, data.data)
+}
+
+
+onMounted(() => {
+  getStudentInfo()
+  console.log(student)
+})
 </script>
 <template>
   <div class="studentRoot">
