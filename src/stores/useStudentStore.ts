@@ -9,7 +9,8 @@ export const useStudentStore = defineStore('sysUser', () => {
             mid: 0,
             major_name: "",
             cid: 0,
-            class_name: ""
+            class_name: "",
+            logged: false
         })
         return {student}
     }

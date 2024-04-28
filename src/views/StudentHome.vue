@@ -1,9 +1,9 @@
 <script setup lang="ts">
-
+import Calendar from "./Calendar.vue";
 </script>
 
 <template>
-  Home
+  <calendar></calendar>
 </template>
 
 <style scoped>

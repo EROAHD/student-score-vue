@@ -3,11 +3,28 @@
 import router from "../router";
 import {useStudentStore} from "../stores/useStudentStore.ts";
 import {onMounted} from "vue";
+import request from "../request";
 
 let student = useStudentStore().student;
+
+async function getStudentInfo() {
+  let {data} = await request.get("/student/info")
+  if (data.code == 200) {
+    Object.assign(student, data.data)
+    student.logged = true
+  }
+}
+
 onMounted(() => {
+  getStudentInfo()
   console.log(student)
 })
+
+function logout() {
+  localStorage.removeItem("token")
+  student.logged = false
+  router.push("/login")
+}
 </script>
 
 <template>
@@ -16,17 +33,11 @@ onMounted(() => {
       <img src="../assets/icon/headerTitle.png" alt="学生成绩查询系统">
       学生成绩查询系统
     </div>
-    <div v-if="!student" class="beforeLogin">
-      <button v-if="router.currentRoute.value.fullPath!='/login' && !student"
-              @click="router.push('login');console.log()">
-        登录
-      </button>
-    </div>
-    <div v-else class="afterLogin">
+    <div v-if="student.logged" class="afterLogin">
       <div class="nameBox">
         {{ student.name }}
       </div>
-      <button v-if="student">退出登录</button>
+      <button @click="logout">退出登录</button>
     </div>
   </div>
 </template>
@@ -50,8 +61,9 @@ div {
 }
 
 .headerTitle img {
-  height: 40px;
+  height: 34px;
   float: left;
+  margin: 3px 10px;
 }
 
 .beforeLogin {

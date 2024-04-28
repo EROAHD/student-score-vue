@@ -16,9 +16,9 @@ async function login() {
   let {data} = await request.post("/login", loginUser)
   console.log(data)
   if (data.code == 200) {
-    showInfoBox(infoBoxObj, "登陆成功！")
     localStorage.setItem("token", data.data.token)
-    await router.push("/Student")
+
+    await router.push("/home")
   } else {
     showInfoBox(infoBoxObj, data.msg)
   }

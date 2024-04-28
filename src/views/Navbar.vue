@@ -4,11 +4,14 @@
 
 <template>
   <div class="navbarRoot">
-    <router-link to="/" active-class="active">
+    <router-link to="/home" active-class="active">
       <button>主页</button>
     </router-link>
-    <router-link to="/Student/score" active-class="active">
-      <button>学生成绩</button>
+    <router-link to="/score" active-class="active">
+      <button>我的成绩</button>
+    </router-link>
+    <router-link to="/info" active-class="active">
+      <button>个人中心</button>
     </router-link>
   </div>
 </template>
