@@ -5,7 +5,7 @@ import {useStudentStore} from "../stores/useStudentStore.ts";
 import {onMounted} from "vue";
 import request from "../request";
 
-let student = useStudentStore().student;
+let student = useStudentStore().studentInfo;
 
 async function getStudentInfo() {
   let {data} = await request.get("/student/info")

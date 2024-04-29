@@ -1,24 +1,24 @@
 <script lang="ts" setup>
 
-import Navbar from "./Navbar.vue";
+import Navbar from "./StudentNavbar.vue";
 import StudentContent from "./StudentContent.vue";
-import {useStudentStore} from "../stores/useStudentStore.ts";
+import {Info, useStudentStore} from "../stores/useStudentStore.ts";
 import request from "../request";
 import {onMounted} from "vue";
 
-let student = useStudentStore().student;
+let studentInfo: Info = useStudentStore().studentInfo;
 
 async function getStudentInfo() {
   let {data} = await request.get("/student/info")
   if (data.code == 200) {
-    Object.assign(student, data.data)
-    student.logged = true
+    Object.assign(studentInfo, data.data)
+    studentInfo.logged = true
   }
 }
 
 onMounted(() => {
   getStudentInfo()
-  console.log(student)
+  console.log(studentInfo)
 })
 
 
@@ -26,7 +26,7 @@ onMounted(() => {
 <template>
   <div class="studentRoot">
     <navbar></navbar>
-    <StudentContent></StudentContent>
+    <student-content></student-content>
   </div>
 </template>
 

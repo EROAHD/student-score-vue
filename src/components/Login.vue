@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import useUser from "../hooks/useUser.ts";
-import InfoBox from "./InfoBox.vue";
+import InfoBox from "./utils/InfoBox.vue";
 import useInfoBox from "../hooks/useInfoBox.ts";
 import request from "../request";
 import router from "../router";
@@ -17,7 +17,6 @@ async function login() {
   console.log(data)
   if (data.code == 200) {
     localStorage.setItem("token", data.data.token)
-
     await router.push("/home")
   } else {
     showInfoBox(infoBoxObj, data.msg)
@@ -31,9 +30,9 @@ async function login() {
   <div class="loginRoot">
     <h1>登录</h1>
     <div class="formBox">
-      <input type="text" v-model="loginUser.username" placeholder="用户名">
-      <input type="password" v-model="loginUser.password" placeholder="密码">
-      <button @click="login">登录</button>
+      <input type="text" v-model="loginUser.username" placeholder="用户名" @keydown.enter="login">
+      <input type="password" v-model="loginUser.password" placeholder="密码" @keydown.enter="login">
+      <button @click="login" @keydown.enter="login">登录</button>
     </div>
   </div>
 </template>

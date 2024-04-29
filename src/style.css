@@ -22,6 +22,7 @@ button {
     display: block;
     /*margin: 10px 0;*/
     box-shadow: 0 0 6px;
+    user-select: none;
 }
 
 /* 设置全局按钮激活样式 */

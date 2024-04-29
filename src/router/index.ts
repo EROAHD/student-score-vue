@@ -1,10 +1,10 @@
 import {createRouter, createWebHistory,} from "vue-router";
-import Student from "../views/Student.vue";
-import Login from "../views/Login.vue";
-import NotFound from "../views/NotFound.vue";
-import StudentScore from "../views/StudentScore.vue";
-import StudentInfo from "../views/StudentInfo.vue";
-import StudentHome from "../views/StudentHome.vue";
+import Student from "../components/Student.vue";
+import Login from "../components/Login.vue";
+import NotFound from "../view/NotFound.vue";
+import StudentScore from "../components/StudentScore.vue";
+import StudentInfo from "../components/StudentInfo.vue";
+import StudentHome from "../components/StudentHome.vue";
 
 
 const router = createRouter({

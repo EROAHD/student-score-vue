@@ -1,14 +1,3 @@
-<template>
-  <div class="calendarRoot">
-    <div class="header">
-      {{ month }} {{ year }}
-    </div>
-    <div class="days">
-      <div v-for="day in daysInMonth" :key="day" :class="{ day: true, today: isToday(day) }">{{ day }}</div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import {computed, ref} from "vue";
 
@@ -29,14 +18,24 @@ const isToday = (day) => {
   return day === today;
 };
 </script>
+<template>
+  <div class="calendarRoot">
+    <div class="header">
+      {{ month }} {{ year }}
+    </div>
+    <div class="days">
+      <div v-for="day in daysInMonth" :key="day" :class="{ day: true, today: isToday(day) }">{{ day }}</div>
+    </div>
+  </div>
+</template>
+
 
 <style scoped>
 .calendarRoot {
-  width: 400px;
-  height: fit-content;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   padding: 10px;
+  display: inline-block;
 }
 
 .header {
