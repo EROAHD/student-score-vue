@@ -19,7 +19,7 @@ async function getScores(pageSize: number, pageNum: number) {
 </script>
 
 <template>
-  <page-box :callback="getScores" :page="page" :field-names="fieldName" style="width: 500px"></page-box>
+  <page-box :callback="getScores" :page="page" :field-names="fieldName" style="width: 100%;margin: auto"></page-box>
 </template>
 
 <style scoped>

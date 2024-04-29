@@ -11,7 +11,7 @@ let reqFun = props.callback;
 let fieldNames = props.fieldNames;
 console.log(page)
 // 设置初始页大小和页数
-let pageSize = ref(2)
+let pageSize = ref(10)
 let pageNum = ref(1)
 // 调用传进来的函数 发送请求
 reqFun(pageSize.value, pageNum.value)
@@ -40,8 +40,8 @@ function getNextPage(currentPage: number) {
       </div>
     </div>
     <!--  获取要显示的属性值  -->
-    <div class="fieldValue">
-      <div v-for="l in page.list">
+    <div>
+      <div v-for="l in page.list" class="fieldValue">
         <div v-for="key in Object.keys(l)" key="key">
           <div>{{ l[key] == false ? "否" : l[key] }}</div>
         </div>
@@ -64,8 +64,9 @@ function getNextPage(currentPage: number) {
 <style scoped>
 .pageBoxRoot {
   overflow: auto;
-  height: 200px;
-  box-shadow: 0 0 1px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px inset;
+  text-align: center;
 }
 
 .buttonBox {
@@ -100,20 +101,21 @@ function getNextPage(currentPage: number) {
 
 .fieldTitle {
   font-weight: bold;
-  box-shadow: 0 0 10px;
 }
 
 .fieldTitle div {
   display: inline-block;
   min-width: 100px;
+  box-shadow: 0 0 1px;
 }
 
 .fieldValue {
-  box-shadow: 0 0 10px;
+  display: block;
 }
 
 .fieldValue div {
   display: inline-block;
   min-width: 100px;
+  box-shadow: 0 0 1px;
 }
 </style>
