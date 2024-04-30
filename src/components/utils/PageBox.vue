@@ -11,7 +11,7 @@ let reqFun = props.callback;
 let fieldNames = props.fieldNames;
 console.log(page)
 // 设置初始页大小和页数
-let pageSize = ref(10)
+let pageSize = ref(2)
 let pageNum = ref(1)
 // 调用传进来的函数 发送请求
 reqFun(pageSize.value, pageNum.value)
@@ -52,11 +52,19 @@ function getNextPage(currentPage: number) {
       <button :disabled="page.isFirstPage" @click="getPreviousPage(page.pageNum)">上一页</button>
       <div class="pageNum"
            v-for="pageItem in page.navigatepageNums"
-           @click="reqFun(pageSize,pageItem)"
+           @click="pageItem != page.pageNum && reqFun(pageSize,pageItem)"
            :class="{active:page.pageNum == pageItem}">
         {{ pageItem }}
       </div>
       <button :disabled="page.isLastPage" @click="getNextPage(page.pageNum)">下一页</button>
+    </div>
+    <div>
+      <select v-model="pageSize" @change="reqFun(pageSize,pageNum)">
+        <option>2</option>
+        <option>10</option>
+        <option>20</option>
+        <option>100</option>
+      </select>
     </div>
   </div>
 </template>
@@ -117,5 +125,11 @@ function getNextPage(currentPage: number) {
   display: inline-block;
   min-width: 100px;
   box-shadow: 0 0 1px;
+}
+
+.buttonBox select {
+  width: 100px;
+  height: 20px;
+  margin: 10px;
 }
 </style>

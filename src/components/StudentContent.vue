@@ -4,7 +4,7 @@
 
 <template>
   <div class="studentContentRoot">
-    <router-view></router-view>
+    <router-view class="content"></router-view>
   </div>
 </template>
 
@@ -15,5 +15,9 @@
   box-shadow: 0 0 1px;
   float: left;
   border-radius: 5px;
+}
+
+.content {
+  overflow: auto;
 }
 </style>
