@@ -5,7 +5,7 @@ let getToken = function () {
 }
 
 let axiosInstance = axios.create({
-    baseURL: "http://localhost:80",
+    baseURL: "http://localhost:8080",
     headers: {
         "Content-Type": "application/json"
     }

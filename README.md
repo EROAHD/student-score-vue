@@ -1,9 +1,13 @@
-# Vue 3 + TypeScript + Vite
+# 学生成绩查询系统 vue前端
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Docker 容器构建
 
-## Recommended Setup
+- 通过在Linux上运行项目根目录的DockerBuild 脚本构建docker镜像
+- 测试环境：wsl2 : Debian GNU/Linux 12 (bookworm) on Windows 10 x86_64
+- 需要在Linux中安装npm用于构建项目
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+### 项目默认地址：http://localhost:80
 
-- Use [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) for performing the same type checking from the command line, or for generating d.ts files for SFCs.
+### 后端请求默认地址：http://localhost:8080
+
+- 修改后端地址：修改 `src/request/index.ts` 中的`baseURL`参数

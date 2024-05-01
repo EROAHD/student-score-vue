@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {computed, ref} from "vue";
 
 const month = ref(new Date().toLocaleString('default', {month: 'long'}));
@@ -13,7 +13,7 @@ const daysInMonth = computed(() => {
   return days;
 });
 
-const isToday = (day) => {
+const isToday = (day:number) => {
   const today = new Date().getDate();
   return day === today;
 };
