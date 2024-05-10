@@ -14,9 +14,12 @@ async function login() {
     return;
   }
   let {data} = await request.post("/login", loginUser)
-  console.log(data)
   if (data.code == 200) {
-    localStorage.setItem("token", data.data.token)
+    const token = data.data.token;
+    // let tokenExpiration = new Date().getTime() + 5000;
+    let tokenExpiration = new Date().getTime() + (7 * 24 * 60 * 60 * 1000);
+    localStorage.setItem("token", token)
+    localStorage.setItem("tokenExpiration", String(tokenExpiration))
     await router.push("/home")
   } else {
     showInfoBox(infoBoxObj, data.msg)

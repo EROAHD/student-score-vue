@@ -1,6 +1,6 @@
 <script setup lang="ts">
 let {infoBox} = defineProps(["infoBox"])
-if (infoBox.show == true) {
+if (infoBox.show) {
   setTimeout(() => {
     infoBox.show = false;
   }, infoBox.time);

@@ -1,11 +1,16 @@
+<script setup lang="ts">
+import router from "../router";
+
+function goHome() {
+  router.push("/home")
+}
+</script>
 <template>
   <div class="not-found">
     <div class="not-found-content">
       <h1>404</h1>
       <p>页面未找到！</p>
-      <router-link to="/">
-        <button>返回主页</button>
-      </router-link>
+      <button @click="goHome()">返回主页</button>
     </div>
   </div>
 </template>
@@ -42,4 +47,5 @@ p {
 button {
   margin: auto;
 }
+
 </style>

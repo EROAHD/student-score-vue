@@ -2,11 +2,12 @@
 
 import Navbar from "./StudentNavbar.vue";
 import StudentContent from "./StudentContent.vue";
-import {Info, useStudentStore} from "../stores/useStudentStore.ts";
 import request from "../request";
 import {onMounted} from "vue";
+import {StudentInfo} from "../types";
+import {useStudentStore} from "../stores/useStudentStore.ts";
 
-let studentInfo: Info = useStudentStore().studentInfo;
+let studentInfo: StudentInfo = useStudentStore().studentInfo;
 
 async function getStudentInfo() {
   let {data} = await request.get("/student/info")
@@ -18,7 +19,6 @@ async function getStudentInfo() {
 
 onMounted(() => {
   getStudentInfo()
-  console.log(studentInfo)
 })
 
 
@@ -39,10 +39,4 @@ onMounted(() => {
   border-radius: 5px;
 }
 
-.navContent {
-  display: inline-block;
-  width: 100px;
-  height: 100px;
-  box-shadow: 0 0 10px;
-}
 </style>

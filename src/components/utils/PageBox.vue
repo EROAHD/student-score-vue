@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {Page} from "../../stores/useStudentStore.ts";
 import {ref} from "vue";
+import {Page} from "../../types";
 // 组件传参 获取page对象和回调函数
 // 其中回调函数 用于发送传入
 let props = defineProps(["page", "callback", "fieldNames"]);
@@ -9,13 +9,11 @@ let page: Page = props.page;
 // 向后端发送请求的函数 有PageNum 页号 和PageSize 页数 两个参数
 let reqFun = props.callback;
 let fieldNames = props.fieldNames;
-console.log(page)
 // 设置初始页大小和页数
 let pageSize = ref(2)
 let pageNum = ref(1)
 // 调用传进来的函数 发送请求
 reqFun(pageSize.value, pageNum.value)
-console.log(pageNum.value, pageSize.value)
 
 function getPreviousPage(currentPage: number) {
   if (currentPage < 1)

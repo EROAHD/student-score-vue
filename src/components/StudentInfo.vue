@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import {Info, useStudentStore} from "../stores/useStudentStore.ts";
 
-let student: Info = useStudentStore().studentInfo
+import {StudentInfo} from "../types";
+import {useStudentStore} from "../stores/useStudentStore.ts";
+
+let student: StudentInfo = useStudentStore().studentInfo
 </script>
 
 <template>

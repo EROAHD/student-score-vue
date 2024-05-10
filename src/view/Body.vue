@@ -11,7 +11,6 @@
 .bodyRoot {
   width: 80%;
   min-height: calc(100vh - 40px);
-  box-shadow: 0 0 1px inset;
   margin: auto;
   border-radius: 5px;
 }

@@ -47,21 +47,18 @@ const router = createRouter({
     }
 )
 router.beforeEach((to, _, next) => {
-    let token = localStorage.getItem("token");
-    console.log(to.path)
-    if (to.path == "/") {
+    const token = localStorage.getItem("token")
+    const tokenExpiration = localStorage.getItem("tokenExpiration")
+    if (token && tokenExpiration && Number(tokenExpiration) < new Date().getTime()) {
+        localStorage.removeItem("token")
+        localStorage.removeItem("tokenExpiration")
+        next("/login")
+    } else if (to.path == "/") {
         next("/home")
-    }
-    if (to.path == "/login") {
-        if (token != null)
-            next("/")
-    }
-    if (to.meta.needLogin) {
-        if (token == null) {
-            next("/login")
-        } else {
-            next()
-        }
+    } else if (to.path == "/login" && token != null) {
+        next("/")
+    } else if (to.meta.needLogin && token == null) {
+        next("/login")
     } else {
         next()
     }

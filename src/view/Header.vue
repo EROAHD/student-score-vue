@@ -17,12 +17,11 @@ async function getStudentInfo() {
 
 onMounted(() => {
   getStudentInfo()
-  console.log(student)
 })
 
 function logout() {
-  localStorage.removeItem("token")
   student.logged = false
+  localStorage.removeItem("token")
   router.push("/login")
 }
 </script>

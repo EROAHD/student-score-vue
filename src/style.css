@@ -25,16 +25,17 @@ button {
     user-select: none;
 }
 
+/* 设置全局按钮激活样式 */
+button:active {
+    box-shadow: 0 0 6px inset;
+}
+
 select {
     border-radius: 10px;
     background-color: rgba(136, 236, 204, 0.4);
     user-select: none;
 }
 
-/* 设置全局按钮激活样式 */
-button:active {
-    box-shadow: 0 0 6px inset;
-}
 
 /* 设置全局文本框样式 */
 input {
@@ -47,3 +48,6 @@ input {
     margin: 10px 0;
 }
 
+.router-link-active {
+    text-decoration: none;
+}
