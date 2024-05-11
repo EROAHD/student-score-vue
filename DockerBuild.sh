@@ -1,3 +1,4 @@
+sudo apt install npm -y && \
 npm run build && \
 cp -r ./dist DockerBuild/ && \
 cd DockerBuild && \
