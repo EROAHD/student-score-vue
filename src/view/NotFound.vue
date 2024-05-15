@@ -2,7 +2,13 @@
 import router from "../router";
 
 function goHome() {
-  router.push("/home")
+  const userType = localStorage.getItem("userType")
+  if (userType != null) {
+    let path = "/" + userType.toLowerCase() + "/home"
+    router.push(path)
+  } else {
+    router.push({name: "login"})
+  }
 }
 </script>
 <template>

@@ -11,24 +11,9 @@
     height: 100%;
 }
 
-/* 设置全局按钮样式 */
-button {
-    width: fit-content;
-    padding: 10px 20px;
-    height: fit-content;
-    line-height: 10px;
-    background-color: rgba(136, 236, 204, 0.4);
-    border-radius: 5px;
-    display: block;
-    /*margin: 10px 0;*/
-    box-shadow: 0 0 6px;
-    user-select: none;
-}
 
 /* 设置全局按钮激活样式 */
-button:active {
-    box-shadow: 0 0 6px inset;
-}
+
 
 select {
     border-radius: 10px;
@@ -36,17 +21,6 @@ select {
     user-select: none;
 }
 
-
-/* 设置全局文本框样式 */
-input {
-    width: 150px; /* 设置文本框的宽度 */
-    height: 30px;
-    padding: 0 10px;
-    border-radius: 5px; /* 设置圆角 */
-    background-color: rgba(188, 227, 233, 0.51);
-    border: none; /* 去掉边框 */
-    margin: 10px 0;
-}
 
 .router-link-active {
     text-decoration: none;

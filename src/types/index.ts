@@ -10,6 +10,29 @@ export interface StudentInfo {
     logged: boolean
 }
 
+export interface TeacherInfo {
+    tno: number,
+    name: string,
+    sex: boolean,
+    phone: string,
+    logged: boolean
+
+}
+
+// 表示页面标题栏显示的信息
+export interface HeaderUserInfo {
+    name: string,
+    logged: boolean
+}
+
+export interface UserAvatar {
+    savePath: string,
+    uploadDate: Date,
+    userId: string,
+    imgSrc: any
+}
+
+
 // 表示分页的对象
 export interface Page {
     "total": number,

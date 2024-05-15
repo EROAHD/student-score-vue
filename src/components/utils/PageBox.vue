@@ -6,11 +6,12 @@ import {Page} from "../../types";
 let props = defineProps(["page", "callback", "fieldNames"]);
 // 从后端传来的Page对象的映射
 let page: Page = props.page;
+console.log(page);
 // 向后端发送请求的函数 有PageNum 页号 和PageSize 页数 两个参数
 let reqFun = props.callback;
 let fieldNames = props.fieldNames;
 // 设置初始页大小和页数
-let pageSize = ref(2)
+let pageSize = ref(5)
 let pageNum = ref(1)
 // 调用传进来的函数 发送请求
 reqFun(pageSize.value, pageNum.value)
@@ -22,10 +23,11 @@ function getPreviousPage(currentPage: number) {
 }
 
 function getNextPage(currentPage: number) {
-  if (currentPage >= page.pageSize)
+  if (currentPage >= page.pages)
     return;
   reqFun(pageSize.value, currentPage + 1)
 }
+
 
 </script>
 
@@ -58,7 +60,7 @@ function getNextPage(currentPage: number) {
     </div>
     <div>
       <select v-model="pageSize" @change="reqFun(pageSize,pageNum)">
-        <option>2</option>
+        <option>5</option>
         <option>10</option>
         <option>20</option>
         <option>100</option>

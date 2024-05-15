@@ -1,10 +1,8 @@
-import {defineStore} from "pinia";
-import {reactive} from "vue";
 import {Page} from "../types";
+import {reactive} from "vue";
 
-
-export const usePageStore = defineStore("page", () => {
-    const page = reactive<Page>({
+export default function usePage() {
+    let page: Page = reactive<Page>({
         endRow: 0,
         hasNextPage: false,
         hasPreviousPage: false,
@@ -17,12 +15,13 @@ export const usePageStore = defineStore("page", () => {
         navigatepageNums: [],
         nextPage: 0,
         pageNum: 0,
-        pageSize: 0,
+        pageSize: 10,
         pages: 0,
         prePage: 0,
         size: 0,
         startRow: 0,
         total: 0
     })
+
     return {page}
-})
+}

@@ -9,7 +9,6 @@
 
 <style scoped>
 .bodyRoot {
-  width: 80%;
   min-height: calc(100vh - 40px);
   margin: auto;
   border-radius: 5px;

@@ -2,12 +2,12 @@
 
 import Navbar from "./StudentNavbar.vue";
 import StudentContent from "./StudentContent.vue";
-import request from "../request";
+import request from "../../request";
 import {onMounted} from "vue";
-import {StudentInfo} from "../types";
-import {useStudentStore} from "../stores/useStudentStore.ts";
+import {StudentInfo} from "../../types";
+import {useUserStore} from "../../stores/useUserStore.ts";
 
-let studentInfo: StudentInfo = useStudentStore().studentInfo;
+let studentInfo: StudentInfo = useUserStore().studentInfo;
 
 async function getStudentInfo() {
   let {data} = await request.get("/student/info")

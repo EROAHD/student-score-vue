@@ -1,45 +1,37 @@
-<!-- 控制顶部状态栏组件 -->
-<script setup lang="ts">
-import router from "../router";
-import {useStudentStore} from "../stores/useStudentStore.ts";
-import {onMounted} from "vue";
-import request from "../request";
-
-let student = useStudentStore().studentInfo;
-
-async function getStudentInfo() {
-  let {data} = await request.get("/student/info")
-  if (data.code == 200) {
-    Object.assign(student, data.data)
-    student.logged = true
-  }
-}
-
-onMounted(() => {
-  getStudentInfo()
-})
-
-function logout() {
-  student.logged = false
-  localStorage.removeItem("token")
-  router.push("/login")
-}
-</script>
-
 <template>
   <div class="headerRoot">
     <div class="headerTitle">
       <img src="../assets/icon/headerTitle.png" alt="学生成绩查询系统">
       学生成绩查询系统
     </div>
-    <div v-if="student.logged" class="afterLogin">
+    <div v-if="headerUserInfo.logged" class="afterLogin">
       <div class="nameBox">
-        {{ student.name }}
+        <el-avatar :size="40" :src="userAvatar.imgSrc" :icon="UserFilled"/>
+        <div style="width:max-content;height: 40px;float: right;margin: 0 10px">
+          {{ headerUserInfo.name }}
+        </div>
       </div>
-      <button @click="logout">退出登录</button>
+      <logout></logout>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import {useUserStore} from "../stores/useUserStore.ts";
+import {UserFilled} from "@element-plus/icons-vue";
+import Logout from "../components/Logout.vue";
+import {HeaderUserInfo, UserAvatar} from "../types";
+import request from "../request";
+
+let baseURL = request.defaults.baseURL;
+// 获取pinia对象
+const userStore = useUserStore();
+// 获取标题头部信息对象
+let headerUserInfo: HeaderUserInfo = userStore.headerUserInfo;
+// 获取用户头像地址对象
+let userAvatar: UserAvatar = userStore.userAvatar;
+console.log(baseURL + userAvatar.savePath);
+</script>
 
 <style scoped>
 div {
@@ -65,16 +57,10 @@ div {
   margin: 3px 10px;
 }
 
-.beforeLogin {
-  float: right;
-  width: fit-content;
-}
-
 .afterLogin {
   float: right;
   width: fit-content;
 }
-
 
 .nameBox {
   width: fit-content;

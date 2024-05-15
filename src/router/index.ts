@@ -1,39 +1,79 @@
 import {createRouter, createWebHistory,} from "vue-router";
-import Student from "../components/Student.vue";
+import Student from "../components/Student/Student.vue";
 import Login from "../components/Login.vue";
 import NotFound from "../view/NotFound.vue";
-import StudentScore from "../components/StudentScore.vue";
-import StudentInfo from "../components/StudentInfo.vue";
-import StudentHome from "../components/StudentHome.vue";
+import StudentScore from "../components/Student/StudentScore.vue";
+import StudentInfo from "../components/Student/StudentInfo.vue";
+import StudentHome from "../components/Student/StudentHome.vue";
+import Teacher from "../components/Teacher/Teacher.vue";
+import TeacherHome from "../components/Teacher/TeacherHome.vue";
+import TeacherStudents from "../components/Teacher/TeacherStudents.vue";
+import TeacherInfo from "../components/Teacher/TeacherInfo.vue";
+import TeacherCourse from "../components/Teacher/TeacherCourse.vue";
 
 
 const router = createRouter({
         history: createWebHistory(),
         routes: [
             {
-                path: "/",
+                path: "/student",
                 component: Student,
+                name: "studentRoot",
                 children: [
                     {
                         path: "home",
+                        name: "studentHome",
                         component: StudentHome
                     },
                     {
                         path: "score",
+                        name: "studentScore",
                         component: StudentScore
                     },
                     {
                         path: "info",
+                        name: "studentInfo",
                         component: StudentInfo
                     }
-
                 ],
                 meta: {
                     needLogin: true
                 }
             },
             {
+                path: "/teacher",
+                component: Teacher,
+                name: "teacherRoot",
+                children: [
+                    {
+                        path: "home",
+                        name: "teacherHome",
+                        component: TeacherHome
+                    },
+                    {
+                        path: "course",
+                        name: "teacherCourse",
+                        component: TeacherCourse
+                    },
+                    {
+                        path: "students",
+                        name: "teacherStudents",
+                        component: TeacherStudents
+                    },
+                    {
+                        path: "info",
+                        name: "teacherInfo",
+                        component: TeacherInfo
+                    }
+                ],
+                meta: {
+                    needLogin: true
+                }
+            },
+            // 登录接口
+            {
                 path: "/login",
+                name: "login",
                 component: Login,
                 meta: {
                     needLogin: false
@@ -46,22 +86,5 @@ const router = createRouter({
         ]
     }
 )
-router.beforeEach((to, _, next) => {
-    const token = localStorage.getItem("token")
-    const tokenExpiration = localStorage.getItem("tokenExpiration")
-    if (token && tokenExpiration && Number(tokenExpiration) < new Date().getTime()) {
-        localStorage.removeItem("token")
-        localStorage.removeItem("tokenExpiration")
-        next("/login")
-    } else if (to.path == "/") {
-        next("/home")
-    } else if (to.path == "/login" && token != null) {
-        next("/")
-    } else if (to.meta.needLogin && token == null) {
-        next("/login")
-    } else {
-        next()
-    }
-})
 
 export default router

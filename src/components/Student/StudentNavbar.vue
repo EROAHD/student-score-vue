@@ -4,13 +4,13 @@
 
 <template>
   <div class="navbarRoot">
-    <router-link to="/home" active-class="active">
+    <router-link :to="{name:'studentHome'}" active-class="active">
       <button>🏠主页</button>
     </router-link>
-    <router-link to="/score" active-class="active">
+    <router-link :to="{name:'studentScore'}" active-class="active">
       <button>🗒️我的成绩</button>
     </router-link>
-    <router-link to="/info" active-class="active">
+    <router-link :to="{name:'studentInfo'}" active-class="active">
       <button>💁个人中心</button>
     </router-link>
   </div>
