@@ -5,6 +5,7 @@ import useInfoBox from "../hooks/useInfoBox.ts";
 import request from "../request";
 import {useUserStore} from "../stores/useUserStore.ts";
 import router from "../router";
+import useLocalStorage from "../hooks/useLocalStorage.ts";
 
 let {infoBoxObj, showInfoBox} = useInfoBox()
 let {loginUser} = useUser();
@@ -20,24 +21,29 @@ async function login() {
     console.log(data)
     const token: string = data.data.token
     const userType: string = data.data.userType
-    // let tokenExpiration = new Date().getTime() + 5000;
     const tokenExpiration: number = new Date().getTime() + (7 * 24 * 60 * 60 * 1000)
-    // 将部分字段存储到本地存储中
-    localStorage.setItem("userType", userType)
-    localStorage.setItem("token", token)
-    localStorage.setItem("tokenExpiration", String(tokenExpiration))
-    //
-    headerUser.logged = true
-    // 跳转指定的角色的页面
-    switch (userType) {
-      case "STUDENT":
-        console.log("student")
-        await router.push({name: "studentRoot"})
-        break
-      case "TEACHER":
-        console.log("teacher")
-        await router.push({name: "teacherRoot"})
-        break
+    if (token && tokenExpiration && userType) {
+      // 将部分字段存储到本地存储中
+      const map = new Map<string, string>();
+      map.set("userType", userType)
+      map.set("token", token)
+      map.set("tokenExpiration", String(tokenExpiration))
+      useLocalStorage().setLocalStorage(map)
+      // 让标题栏用户信息显示
+      headerUser.logged = true
+      // 跳转指定的角色的页面
+      switch (userType) {
+        case "student":
+          console.log("student")
+          await router.push({name: "studentHome"})
+          break
+        case "teacher":
+          console.log("teacher")
+          await router.push({name: "teacherHome"})
+          break
+      }
+    } else {
+      showInfoBox(infoBoxObj, "数据获取失败")
     }
   } else {
     showInfoBox(infoBoxObj, data.msg)
@@ -103,6 +109,7 @@ button:active {
 
 .formBox {
   width: min-content;
+  min-height: 170px;
   margin: auto;
 }
 

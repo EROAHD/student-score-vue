@@ -20,7 +20,7 @@ import {Histogram, HomeFilled, InfoFilled, School, UserFilled} from "@element-pl
           <el-icon>
             <School/>
           </el-icon>
-          <span>学生管理</span>
+          <span>教学相关</span>
         </template>
         <el-menu-item index="/teacher/students">
           <el-icon>

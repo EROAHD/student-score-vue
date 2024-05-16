@@ -4,6 +4,9 @@
 
 <script lang="ts" setup>
 import {ElMessage, ElMessageBox} from 'element-plus'
+import router from "../router";
+import useLocalStorage from "../hooks/useLocalStorage.ts";
+import {useUserStore} from "../stores/useUserStore.ts";
 
 const open = () => {
   ElMessageBox.confirm(
@@ -16,6 +19,8 @@ const open = () => {
         center: true
       }
   ).then(() => {
+    useLocalStorage().removeLocalStorage(["token", "userType", "tokenExpiration"])
+    useUserStore().resetStore()
     router.push("/login")
   }).catch(() => {
     ElMessage({

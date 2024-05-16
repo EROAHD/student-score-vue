@@ -1,53 +1,49 @@
 <template>
-  <div style="display: flex; justify-content: center;">
-    <el-upload
-        v-model:file-list="fileList"
-        class="upload-demo"
-        :action="`${request.defaults.baseURL}/avatar`"
-        multiple
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        :limit="1"
-        :on-exceed="handleExceed"
-        :headers="{token:token}"
-    >
-      <el-button type="primary">修改头像</el-button>
-    </el-upload>
-  </div>
+  <el-upload
+      ref="upload"
+      accept=""
+      class="upload-demo"
+      :action="`${request.defaults.baseURL}/avatar`"
+      :headers="{token:token}"
+      :limit="1"
+      :on-exceed="handleExceed"
+      :on-success="handleAvatarSuccess"
+      :show-file-list="false"
+      style="display:flex;justify-content: center"
+  >
+    <template #trigger>
+      <el-button type="primary">选择头像</el-button>
+    </template>
+  </el-upload>
 </template>
-<script lang="ts" setup>
+
+<script setup lang="ts">
 import {ref} from 'vue'
-import type {UploadProps, UploadUserFile} from 'element-plus'
-import {ElMessage, ElMessageBox} from 'element-plus'
+import type {UploadInstance, UploadProps, UploadRawFile} from 'element-plus'
+import {genFileId} from 'element-plus'
 import request from "../request";
+import {useUserStore} from "../stores/useUserStore.ts";
 
 let token = localStorage.getItem("token")
+let userStore = useUserStore();
+let userAvatar = userStore.userAvatar;
 
-const fileList = ref<UploadUserFile[]>([])
+const upload = ref<UploadInstance>()
 
-const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
-  console.log(file, uploadFiles)
+const handleAvatarSuccess: UploadProps['onSuccess'] = async (response: any) => {
+  console.log(response)
+  if (response.code == 200) {
+    let {data} = await request.get(`${request.defaults.baseURL}/avatar`)
+    Object.assign(userAvatar, data.data)
+  }
+  upload.value!.clearFiles()
 }
 
-const handlePreview: UploadProps['onPreview'] = (uploadFile) => {
-  console.log(uploadFile)
+const handleExceed: UploadProps['onExceed'] = (files) => {
+  upload.value!.clearFiles()
+  const file = files[0] as UploadRawFile
+  file.uid = genFileId()
+  upload.value!.handleStart(file)
 }
 
-const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {
-  ElMessage.warning(
-      `The limit is 3, you selected ${files.length} files this time, add up to ${
-          files.length + uploadFiles.length
-      } totally`
-  )
-}
-
-const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
-  return ElMessageBox.confirm(
-      `Cancel the transfer of ${uploadFile.name} ?`
-  ).then(
-      () => true,
-      () => false
-  )
-}
 </script>
