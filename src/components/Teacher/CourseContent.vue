@@ -29,7 +29,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <el-scrollbar style="height: calc(100vh - 130px)">
+  <el-scrollbar style="height: calc(100vh - 130px);float: left">
     <el-empty v-if="!(courses.length > 0)" description="没有课程"></el-empty>
     <div class="card-container">
       <el-card v-for="course in courses" :key="course" style="width: 300px;margin: 5px"
@@ -40,7 +40,10 @@ onMounted(async () => {
             <el-empty image-size="50px" description="暂无图片"></el-empty>
           </template>
         </el-image>
-        <course-image-upload :course-id="course.cid"></course-image-upload>
+        <div style="display: flex;justify-content: space-between">
+          <course-image-upload :course-id="course.cid"></course-image-upload>
+          <edit-student-score :course-id="course.cid" :course-type="course.typeId"></edit-student-score>
+        </div>
         <el-divider style="margin: 5px 0"></el-divider>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <el-text>课程号</el-text>
@@ -64,7 +67,6 @@ onMounted(async () => {
           <el-text>{{ course.typeId == "1" ? "必修" : "选修" }}</el-text>
         </div>
         <el-divider style="margin: 5px 0"></el-divider>
-        <edit-student-score :course-id="course.cid" :course-type="course.typeId"></edit-student-score>
 
       </el-card>
     </div>

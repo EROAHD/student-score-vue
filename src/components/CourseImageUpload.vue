@@ -8,7 +8,6 @@
       :on-exceed="handleExceed"
       :before-upload="beforeUpload"
       :show-file-list="false"
-      style="display:flex;justify-content: center"
   >
     <template #trigger>
       <el-button type="primary">选择图片</el-button>
