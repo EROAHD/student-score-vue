@@ -23,7 +23,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-scrollbar style="height: calc(100% - 20px);padding: 10px">
+  <el-scrollbar style="height: calc(100% - 20px);">
 
     <el-row style="background: white">
 
@@ -53,7 +53,7 @@ onMounted(() => {
       </div>
     </el-row>
   </el-scrollbar>
-  
+
 </template>
 
 <style scoped>

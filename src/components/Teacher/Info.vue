@@ -7,7 +7,7 @@ import {reactive, ref} from "vue";
 import FileUpload from "../AvatarUpload.vue";
 import request from "../../request";
 import useUser from "../../hooks/useUser.ts";
-import {ElMessage, FormInstance} from "element-plus";
+import {ElMessage, FormInstance, FormRules} from "element-plus";
 
 let userStore = useUserStore();
 let teacherInfo: TeacherInfo = userStore.teacherInfo
@@ -157,7 +157,4 @@ const submitForm = (formEl: FormInstance | undefined) => {
 </template>
 
 <style scoped>
-.teacherInfoRoot {
-  padding: 10px;
-}
 </style>

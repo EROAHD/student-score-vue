@@ -31,6 +31,14 @@ export interface Page {
     "navigateLastPage": number
 }
 
+export interface TeacherCourse {
+    cid: number,
+    name: string,
+    mid: string,
+    tno: number,
+    typeId: number,
+}
+
 /** -------------------------------------------------------------------------------------------------------------------
  *  store 中使用的类型
  */

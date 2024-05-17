@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
-import Navbar from "./TeacherNavbar.vue";
-import TeacherContent from "./TeacherContent.vue";
+import Navbar from "./Navbar.vue";
+import TeacherContent from "./Content.vue";
 import request from "../../request";
 import {onMounted} from "vue";
 import {useUserStore} from "../../stores/useUserStore.ts";

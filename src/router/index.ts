@@ -6,10 +6,11 @@ import StudentScore from "../components/Student/StudentScore.vue";
 import StudentInfo from "../components/Student/StudentInfo.vue";
 import StudentHome from "../components/Student/StudentHome.vue";
 import Teacher from "../components/Teacher/Teacher.vue";
-import TeacherHome from "../components/Teacher/TeacherHome.vue";
-import TeacherStudents from "../components/Teacher/TeacherStudents.vue";
-import TeacherInfo from "../components/Teacher/TeacherInfo.vue";
-import TeacherCourse from "../components/Teacher/TeacherCourse.vue";
+import TeacherHome from "../components/Teacher/Home.vue";
+import TeacherStudents from "../components/Teacher/Students.vue";
+import TeacherInfo from "../components/Teacher/Info.vue";
+import TeacherCourse from "../components/Teacher/CourseRoot.vue";
+import {useUserStore} from "../stores/useUserStore.ts";
 
 
 const router = createRouter({
@@ -35,10 +36,7 @@ const router = createRouter({
                         name: "studentInfo",
                         component: StudentInfo
                     }
-                ],
-                meta: {
-                    needLogin: true
-                }
+                ]
             },
             {
                 path: "/teacher",
@@ -65,22 +63,17 @@ const router = createRouter({
                         name: "teacherInfo",
                         component: TeacherInfo
                     }
-                ],
-                meta: {
-                    needLogin: true
-                }
+                ]
             },
-            // 登录接口
+            // 登陆页面
             {
                 path: "/login",
                 name: "login",
-                component: Login,
-                meta: {
-                    needLogin: false
-                }
+                component: Login
             },
             {
-                path: '/:pathMatch(.*)',
+                path: '/notfound',
+                name: "NotFound",
                 component: NotFound
             }
         ]
@@ -92,10 +85,19 @@ router.beforeEach((to, _, next) => {
     let token = localStorage.getItem("token")
     let tokenExpiration = localStorage.getItem("tokenExpiration");
     let userType = localStorage.getItem("userType")
-    if (to.path == "/login")
+    if (to.path == "/login" || to.path == "/notfound")
         next()
     if (!(token && tokenExpiration && userType)) {
+        useUserStore().resetStore()
         next({name: "login"})
+        return
+    } else if (to.path.toLowerCase() === `/${userType}/` || to.path == "/") {
+        next(`/${userType}/home`)
+        return
+    } else if (!to.path.toLowerCase().startsWith(`/${userType}/`)) {
+        console.log(to.name)
+        next("/notfound")
+        return;
     }
     next()
 })

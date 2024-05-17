@@ -1,10 +1,10 @@
 import {defineStore} from "pinia";
-import {computed, reactive} from "vue";
+import {computed, reactive, UnwrapNestedRefs} from "vue";
 import {HeaderUserInfo, StudentInfo, TeacherInfo, UserAvatar} from "../types";
 import request from "../request";
 
 export const useUserStore = defineStore('UserStore', () => {
-    const userAvatar = reactive<UserAvatar>({
+    const userAvatar: UnwrapNestedRefs<UserAvatar> = reactive<UserAvatar>({
         savePath: "",
         uploadDate: new Date("0000-00-00"),
         userId: "",
