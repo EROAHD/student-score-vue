@@ -10,11 +10,9 @@
 
 <style scoped>
 .studentContentRoot {
-  width: 85%;
-  height: 100%;
+  height: calc(100vh - 60px);
   box-shadow: 0 0 1px;
-  float: left;
   border-radius: 5px;
+  padding: 10px;
 }
-
 </style>

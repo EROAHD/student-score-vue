@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import {onMounted, reactive} from "vue";
 import request from "../../request";
-import usePage from "../../hooks/usePage.ts";
-import {TeacherCourse} from "../../types";
-import CourseImageUpload from "../CourseImageUpload.vue";
-import EditStudentScore from "./EditStudentScore.vue";
 
 
-let page = usePage().page;
-let courses = reactive<TeacherCourse[]>([]);
+let courses = reactive([]);
 let props = defineProps(["courseTypeId"]);
 let courseTypeId = props.courseTypeId;
 let courseTypeName = "必修";
@@ -18,7 +13,7 @@ switch (courseTypeId) {
     break;
 }
 onMounted(async () => {
-  await request.get(`/teacher/course/${courseTypeId}`).then((resp) => {
+  await request.get(`/student/score/${courseTypeId}`).then((resp) => {
     if (resp.status == 200) {
       Object.assign(courses, resp.data.data)
       console.log(courses)
@@ -31,42 +26,52 @@ onMounted(async () => {
   <el-scrollbar style="height: calc(100vh - 130px);float: left;width: 100%">
     <el-empty v-if="!(courses.length > 0)" description="没有课程"></el-empty>
     <div class="card-container">
-      <el-card v-for="course in courses" :key="course" style="width: 300px;margin: 5px"
-               shadow="hover">
+      <el-card v-for="course in courses"
+               :key="course"
+               style="width: 300px;margin: 5px"
+               shadow="hover"
+               :style="{boxShadow:course.score == null?'0 0 3px Orange':course.score < 60?'0 0 5px red':''}"
+      >
         <el-image style="width: 100%;height: 200px" fit="contain"
                   :src="`${request.defaults.baseURL}/upload/course_${course.cid}.jpg`">
           <template #error>
-            <el-empty image-size="50px" description="暂无图片"></el-empty>
+            <el-empty :image-size="50" description="暂无图片"></el-empty>
           </template>
         </el-image>
         <div style="display: flex;justify-content: space-between">
-          <course-image-upload :course-id="course.cid"></course-image-upload>
-          <edit-student-score :course-id="course.cid" :course-type="course.typeId"></edit-student-score>
         </div>
         <el-divider style="margin: 5px 0"></el-divider>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <el-text>课程号</el-text>
-          <el-text>{{ course.cid }}</el-text>
+          <el-text>{{ course.courseId }}</el-text>
         </div>
         <el-divider style="margin: 5px 0"></el-divider>
 
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <el-text>课程名</el-text>
-          <el-text>{{ course.name }}</el-text>
+          <el-text>{{ course.courseName }}</el-text>
         </div>
         <el-divider style="margin: 5px 0"></el-divider>
 
-        <div v-if="course.typeId == '1'" style="display: flex; justify-content: space-between; align-items: center;">
-          <el-text>所属专业</el-text>
-          <el-text>{{ course.mid }}</el-text>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <el-text>成绩</el-text>
+          <el-text :style="{color:course.score == null?'orange':(course.score < 60?'red':'')}">
+            {{ course.score == null ? "暂无成绩" : course.score }}
+          </el-text>
         </div>
-        <el-divider v-if="course.typeId == '1'" style="margin: 5px 0"></el-divider>
+        <el-divider style="margin: 5px 0"></el-divider>
+
+        <div v-if="course.courseType == '1'"
+             style="display: flex; justify-content: space-between; align-items: center;">
+          <el-text>所属专业</el-text>
+          <el-text>{{ course.courseMajor }}</el-text>
+        </div>
+        <el-divider v-if="course.courseType == '1'" style="margin: 5px 0"></el-divider>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <el-text>课程类型</el-text>
-          <el-text>{{ course.typeId == "1" ? "必修" : "选修" }}</el-text>
+          <el-text>{{ course.courseType == "1" ? "必修" : "选修" }}</el-text>
         </div>
         <el-divider style="margin: 5px 0"></el-divider>
-
       </el-card>
     </div>
   </el-scrollbar>
@@ -77,5 +82,14 @@ onMounted(async () => {
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
+}
+
+.card-course-fail {
+  box-shadow: red 0 0 10px;
+}
+
+.card-course-fail:hover {
+  box-shadow: red 0 0 10px;
+
 }
 </style>

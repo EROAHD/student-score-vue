@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {Password, TeacherInfo} from "../../types";
+import {AdminInfo, Password} from "../../types";
 import {useUserStore} from "../../stores/useUserStore.ts";
 import {UserFilled} from "@element-plus/icons-vue";
 import {reactive, ref} from "vue";
@@ -9,19 +9,19 @@ import request from "../../request";
 import useUser from "../../hooks/useUser.ts";
 import {ElMessage, FormInstance, FormRules} from "element-plus";
 
-let userStore = useUserStore();
-let teacherInfo: TeacherInfo = userStore.teacherInfo
-let userAvatar = userStore.userAvatar;
+let userStore = useUserStore()
+let admin: AdminInfo = userStore.adminInfo
+let userAvatar = userStore.userAvatar
 //
 const activeName = ref('one')
+
 // 设置表示密码的对象
-let passwordObj: Password = useUser().passwordObj;
 
 /*
 * 表单验证相关操作
 */
 const ruleFormRef = ref<FormInstance>()
-
+let passwordObj: Password = useUser().passwordObj;
 const validateOldPass = (rule: any, value: any, callback: any) => {
   if (value == '') {
     callback(new Error('请输入原密码'))
@@ -83,7 +83,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <div class="teacherInfoRoot">
+  <div class="adminRoot">
     <el-scrollbar :height="'calc(100vh - 60px)'">
       <el-space>
         <el-card style="width: 400px;height: calc(100vh - 60px)">
@@ -96,18 +96,18 @@ const submitForm = (formEl: FormInstance | undefined) => {
           <el-divider></el-divider>
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>账号：</div>
-            <div>{{ teacherInfo.tno }}</div>
+            <div>{{ admin.adminId }}</div>
           </div>
           <el-divider></el-divider>
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>手机号</div>
-            <div>{{ teacherInfo.phone }}</div>
+            <div>邮箱</div>
+            <div>{{ admin.email }}</div>
           </div>
           <el-divider></el-divider>
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>所属角色</div>
             <div>
-              <el-tag type="primary" size="large">教师</el-tag>
+              <el-tag type="warning" size="large">管理员</el-tag>
             </div>
           </div>
           <el-divider></el-divider>
@@ -120,12 +120,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
               <el-divider></el-divider>
               <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div>姓名</div>
-                <div>{{ teacherInfo.name }}</div>
-              </div>
-              <el-divider></el-divider>
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>性别</div>
-                <div>{{ teacherInfo.sex ? '男' : '女' }}</div>
+                <div>{{ admin.name }}</div>
               </div>
               <el-divider></el-divider>
             </el-tab-pane>

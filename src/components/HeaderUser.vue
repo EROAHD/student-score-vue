@@ -13,7 +13,6 @@ const userStore = useUserStore();
 let headerUserInfo: HeaderUserInfo = userStore.headerUserInfo;
 // 获取用户头像地址对象
 let userAvatar: UserAvatar = userStore.userAvatar;
-console.log(baseURL + userAvatar.savePath);
 </script>
 
 <template>

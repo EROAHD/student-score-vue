@@ -8,10 +8,9 @@ import {useUserStore} from "../../stores/useUserStore.ts";
 import {HeaderUserInfo, TeacherInfo, UserAvatar} from "../../types";
 
 let userStore = useUserStore();
-let userAvatar: UserAvatar = userStore.userAvatar;
+// 获取教师信息并设置顶栏信息
 let headerUserInfo: HeaderUserInfo = userStore.headerUserInfo;
 let teacherInfo: TeacherInfo = userStore.teacherInfo;
-
 console.log(teacherInfo)
 
 async function getTeacherInfo() {
@@ -24,6 +23,9 @@ async function getTeacherInfo() {
   }
 }
 
+// 处理用户头像
+let userAvatar: UserAvatar = userStore.userAvatar;
+
 async function getAvatar() {
   let {data} = await request.get("/avatar");
   if (data.code == 200) {
@@ -34,6 +36,7 @@ async function getAvatar() {
   }
 }
 
+// 在挂载后立即调用获取用户信息
 onMounted(() => {
   getTeacherInfo()
   getAvatar()
@@ -42,7 +45,7 @@ onMounted(() => {
 
 </script>
 <template>
-  <div class="teacherRoot">
+  <div class="studentRoot">
     <el-row>
       <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
         <navbar></navbar>
@@ -56,7 +59,7 @@ onMounted(() => {
 
 
 <style scoped>
-.teacherRoot {
+.studentRoot {
   width: 100%;
   height: calc(100vh - 40px);
   background-color: rgba(255, 255, 255, 0.8);

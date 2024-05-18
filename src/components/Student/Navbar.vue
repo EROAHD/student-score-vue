@@ -9,29 +9,29 @@ import {Histogram, HomeFilled, InfoFilled, School} from "@element-plus/icons-vue
         mode="vertical"
         router
     >
-      <el-menu-item index="/teacher/home">
+      <el-menu-item index="/student/home">
         <el-icon>
           <HomeFilled/>
         </el-icon>
         <span>主页</span>
       </el-menu-item>
-      <el-sub-menu index="/teacher">
+      <el-sub-menu index="/student">
         <template #title>
           <el-icon>
             <School/>
           </el-icon>
-          <span>教学相关</span>
+          <span>学业相关</span>
         </template>
-        <el-menu-item index="/teacher/course">
+        <el-menu-item index="/student/scores">
           <el-icon>
             <Histogram/>
           </el-icon>
           <span>
-          我的课程
+          课程成绩
           </span>
         </el-menu-item>
       </el-sub-menu>
-      <el-menu-item index="/teacher/info">
+      <el-menu-item index="/student/info">
         <el-icon>
           <InfoFilled/>
         </el-icon>

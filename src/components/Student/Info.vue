@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {Password, TeacherInfo} from "../../types";
+import {Password} from "../../types";
 import {useUserStore} from "../../stores/useUserStore.ts";
 import {UserFilled} from "@element-plus/icons-vue";
 import {reactive, ref} from "vue";
@@ -10,7 +10,7 @@ import useUser from "../../hooks/useUser.ts";
 import {ElMessage, FormInstance, FormRules} from "element-plus";
 
 let userStore = useUserStore();
-let teacherInfo: TeacherInfo = userStore.teacherInfo
+let studentInfo: StudentInfo = userStore.studentInfo
 let userAvatar = userStore.userAvatar;
 //
 const activeName = ref('one')
@@ -83,7 +83,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <div class="teacherInfoRoot">
+  <div class="studentInfoRoot">
     <el-scrollbar :height="'calc(100vh - 60px)'">
       <el-space>
         <el-card style="width: 400px;height: calc(100vh - 60px)">
@@ -96,18 +96,18 @@ const submitForm = (formEl: FormInstance | undefined) => {
           <el-divider></el-divider>
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>账号：</div>
-            <div>{{ teacherInfo.tno }}</div>
+            <div>{{ studentInfo.sno }}</div>
           </div>
           <el-divider></el-divider>
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>手机号</div>
-            <div>{{ teacherInfo.phone }}</div>
+            <div>邮箱</div>
+            <div>{{ studentInfo.email }}</div>
           </div>
           <el-divider></el-divider>
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>所属角色</div>
             <div>
-              <el-tag type="primary" size="large">教师</el-tag>
+              <el-tag type="primary" size="large">学生</el-tag>
             </div>
           </div>
           <el-divider></el-divider>
@@ -120,12 +120,22 @@ const submitForm = (formEl: FormInstance | undefined) => {
               <el-divider></el-divider>
               <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div>姓名</div>
-                <div>{{ teacherInfo.name }}</div>
+                <div>{{ studentInfo.name }}</div>
               </div>
               <el-divider></el-divider>
               <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div>性别</div>
-                <div>{{ teacherInfo.sex ? '男' : '女' }}</div>
+                <div>{{ studentInfo.sex ? '男' : '女' }}</div>
+              </div>
+              <el-divider></el-divider>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>专业</div>
+                <div>{{ studentInfo.majorName }}</div>
+              </div>
+              <el-divider></el-divider>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>班级</div>
+                <div>{{ studentInfo.className }}</div>
               </div>
               <el-divider></el-divider>
             </el-tab-pane>

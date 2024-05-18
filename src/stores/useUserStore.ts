@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {computed, reactive, UnwrapNestedRefs} from "vue";
-import {HeaderUserInfo, StudentInfo, TeacherInfo, UserAvatar} from "../types";
+import {AdminInfo, HeaderUserInfo, StudentInfo, TeacherInfo, UserAvatar} from "../types";
 import request from "../request";
 
 export const useUserStore = defineStore('UserStore', () => {
@@ -58,6 +58,20 @@ export const useUserStore = defineStore('UserStore', () => {
             studentInfo.sno = 0;
         }
     });
+    const adminInfo: AdminInfo = reactive<StudentInfo>({
+        adminId: 0,
+        name: "",
+        email: "",
+        phone: "",
+        logged: false,
+        reset: () => {
+            adminInfo.adminId = 0;
+            adminInfo.name = "";
+            adminInfo.email = "";
+            adminInfo.phone = "";
+            adminInfo.logged = false;
+        }
+    });
 
     const headerUserInfo = reactive<HeaderUserInfo>({
         name: "",
@@ -74,5 +88,5 @@ export const useUserStore = defineStore('UserStore', () => {
         headerUserInfo.reset();
     };
 
-    return {userAvatar, studentInfo, teacherInfo, headerUserInfo, resetStore};
+    return {userAvatar, studentInfo, teacherInfo, adminInfo, headerUserInfo, resetStore};
 });

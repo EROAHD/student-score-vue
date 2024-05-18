@@ -10,10 +10,10 @@ let props = defineProps(["courseType", "courseId"]);
 let courseId = props.courseId;
 let courseType = props.courseType;
 let changeDialogVisible = ref(false)
-let studentScore = ref({})
+let studentRow = ref({})
 
 onMounted(async () => {
-  let {data} = await request.get(`/teacher/student/2/1?courseType=${courseType}&courseId=${courseId}`)
+  let {data} = await request.get(`/teacher/students/${courseType}/${courseId}`)
   console.log(data)
   if (data.code == 200) {
     Object.assign(page, data.data)
@@ -23,18 +23,25 @@ onMounted(async () => {
 function changeScore(scope) {
   changeDialogVisible.value = true
   console.log(scope)
-  studentScore.value = scope
-  console.log(studentScore)
+  studentRow.value = scope
+  console.log(studentRow)
 }
 
 async function submitChange() {
-  await request.put(`/teacher/student/${studentScore.value.sno}/course/${studentScore.value.courseId}/score/${studentScore.value.score}`).then((resp) => {
-    console.log(resp)
-    if (resp.status == 200) {
-      ElMessage.success("修改成绩成功")
-      changeDialogVisible.value = false
-    }
-  })
+  if (!studentRow.value.score) {
+    ElMessage.error("请输入有效的值！")
+  }
+  if (studentRow.value.score > 100 || studentRow.value.score < 0) {
+    ElMessage.error("成绩必须大于等于0且小于等于100")
+  } else {
+    await request.put(`/teacher/student/${studentRow.value.sno}/course/${studentRow.value.courseId}/score/${studentRow.value.score}`).then((resp) => {
+      console.log(resp)
+      if (resp.status == 200) {
+        ElMessage.success("修改成绩成功")
+        changeDialogVisible.value = false
+      }
+    })
+  }
 }
 </script>
 
@@ -49,7 +56,7 @@ async function submitChange() {
                title="成绩编辑"
                size="80%">
       <el-scrollbar>
-        <el-table :data="page.list" height="250" style="width: 100%" :highlight-current-row="true">
+        <el-table :data="page.list" height="100%" style="width: 100%" :highlight-current-row="true">
           <el-table-column prop="sno" label="学号" width="180"/>
           <el-table-column prop="name" label="姓名" width="180"/>
           <el-table-column prop="courseName" label="课程"/>
@@ -68,22 +75,21 @@ async function submitChange() {
             <el-button @click="changeScore(scope.row)">修改</el-button>
           </el-table-column>
         </el-table>
-        {{ page.list }}
       </el-scrollbar>
 
       <el-dialog v-model="changeDialogVisible" title="修改成绩" width="300px">
         <el-form>
           <el-form-item label="学号">
-            <el-input disabled v-model="studentScore.sno"></el-input>
+            <el-input disabled v-model="studentRow.sno"></el-input>
           </el-form-item>
           <el-form-item label="姓名">
-            <el-input disabled v-model="studentScore.name"></el-input>
+            <el-input disabled v-model="studentRow.name"></el-input>
           </el-form-item>
           <el-form-item label="课程">
-            <el-input disabled v-model="studentScore.courseName"></el-input>
+            <el-input disabled v-model="studentRow.courseName"></el-input>
           </el-form-item>
           <el-form-item label="成绩">
-            <el-input v-model="studentScore.score"></el-input>
+            <el-input type="number" v-model.number="studentRow.score"></el-input>
           </el-form-item>
         </el-form>
         <el-button @click="submitChange()">修改</el-button>

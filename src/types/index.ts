@@ -46,11 +46,12 @@ export interface TeacherCourse {
 export interface StudentInfo {
     sno: number,
     name: string,
+    sex: string,
     email: string,
     mid: number,
-    major_name: string,
+    majorName: string,
     cid: number,
-    class_name: string,
+    className: string,
     logged: boolean,
     reset: any
 }
@@ -62,7 +63,15 @@ export interface TeacherInfo {
     phone: string,
     logged: boolean,
     reset: any
+}
 
+export interface AdminInfo {
+    adminId: string,
+    name: string,
+    email: sring,
+    phone: string,
+    logged: boolean,
+    reset: any
 }
 
 // 表示页面标题栏显示的信息

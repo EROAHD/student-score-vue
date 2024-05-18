@@ -41,6 +41,11 @@ async function login() {
           console.log("teacher")
           await router.push({name: "teacherHome"})
           break
+        case "admin": {
+          console.log("admin")
+          await router.push({name: "adminHome"})
+          break
+        }
       }
     } else {
       showInfoBox(infoBoxObj, "数据获取失败")

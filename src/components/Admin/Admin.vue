@@ -5,21 +5,21 @@ import Content from "./Content.vue";
 import request from "../../request";
 import {onMounted} from "vue";
 import {useUserStore} from "../../stores/useUserStore.ts";
-import {HeaderUserInfo, StudentInfo, UserAvatar} from "../../types";
+import {AdminInfo, HeaderUserInfo, UserAvatar} from "../../types";
 
 let userStore = useUserStore();
 let userAvatar: UserAvatar = userStore.userAvatar;
 let headerUserInfo: HeaderUserInfo = userStore.headerUserInfo;
-let studentInfo: StudentInfo = userStore.studentInfo;
+let adminInfo: AdminInfo = userStore.adminInfo;
 
-console.log(studentInfo)
+console.log(adminInfo)
 
 async function getStudentInfo() {
-  let {data} = await request.get("/student/info")
+  let {data} = await request.get("/admin/info")
   if (data.code == 200) {
-    Object.assign(studentInfo, data.data)
-    headerUserInfo.name = studentInfo.name
-    studentInfo.logged = true
+    Object.assign(adminInfo, data.data)
+    headerUserInfo.name = adminInfo.name
+    adminInfo.logged = true
     headerUserInfo.logged = true
   }
 }
