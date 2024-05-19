@@ -10,7 +10,7 @@
       :show-file-list="false"
   >
     <template #trigger>
-      <el-button type="primary">选择图片</el-button>
+      <el-button plain type="primary">选择图片</el-button>
     </template>
   </el-upload>
 </template>

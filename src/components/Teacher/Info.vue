@@ -145,7 +145,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
                 <el-form-item label="确认新密码" prop="reNewPassword">
                   <el-input :type="'password'" v-model="passwordObj.reNewPassword"></el-input>
                 </el-form-item>
-                <el-button type="primary" @click="submitForm(ruleFormRef)">提交</el-button>
+                <el-button plain type="primary" @click="submitForm(ruleFormRef)">提交</el-button>
               </el-form>
             </el-tab-pane>
           </el-tabs>

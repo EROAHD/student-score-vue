@@ -1,22 +1,15 @@
 <script setup lang="ts">
 import {onMounted, reactive} from "vue";
 import request from "../../request";
-import usePage from "../../hooks/usePage.ts";
 import {TeacherCourse} from "../../types";
 import CourseImageUpload from "../CourseImageUpload.vue";
 import EditStudentScore from "./EditStudentScore.vue";
 
 
-let page = usePage().page;
 let courses = reactive<TeacherCourse[]>([]);
 let props = defineProps(["courseTypeId"]);
 let courseTypeId = props.courseTypeId;
-let courseTypeName = "必修";
-switch (courseTypeId) {
-  case "2":
-    courseTypeName = "选修"
-    break;
-}
+
 onMounted(async () => {
   await request.get(`/teacher/course/${courseTypeId}`).then((resp) => {
     if (resp.status == 200) {
@@ -56,14 +49,14 @@ onMounted(async () => {
         </div>
         <el-divider style="margin: 5px 0"></el-divider>
 
-        <div v-if="course.typeId == '1'" style="display: flex; justify-content: space-between; align-items: center;">
+        <div v-if="course.typeId == 1" style="display: flex; justify-content: space-between; align-items: center;">
           <el-text>所属专业</el-text>
           <el-text>{{ course.mid }}</el-text>
         </div>
-        <el-divider v-if="course.typeId == '1'" style="margin: 5px 0"></el-divider>
+        <el-divider v-if="course.typeId == 1" style="margin: 5px 0"></el-divider>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <el-text>课程类型</el-text>
-          <el-text>{{ course.typeId == "1" ? "必修" : "选修" }}</el-text>
+          <el-text>{{ course.typeId == 1 ? "必修" : "选修" }}</el-text>
         </div>
         <el-divider style="margin: 5px 0"></el-divider>
 

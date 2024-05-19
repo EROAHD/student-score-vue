@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import {onMounted, reactive} from "vue";
 import request from "../../request";
+import {StudentCourse} from "../../types";
 
 
-let courses = reactive([]);
+let courses = reactive<StudentCourse[]>([]);
 let props = defineProps(["courseTypeId"]);
 let courseTypeId = props.courseTypeId;
-let courseTypeName = "必修";
-switch (courseTypeId) {
-  case "2":
-    courseTypeName = "选修"
-    break;
-}
+
 onMounted(async () => {
   await request.get(`/student/score/${courseTypeId}`).then((resp) => {
     if (resp.status == 200) {
@@ -33,7 +29,7 @@ onMounted(async () => {
                :style="{boxShadow:course.score == null?'0 0 3px Orange':course.score < 60?'0 0 5px red':''}"
       >
         <el-image style="width: 100%;height: 200px" fit="contain"
-                  :src="`${request.defaults.baseURL}/upload/course_${course.cid}.jpg`">
+                  :src="`${request.defaults.baseURL}/upload/course_${course.courseId}.jpg`">
           <template #error>
             <el-empty :image-size="50" description="暂无图片"></el-empty>
           </template>
@@ -54,6 +50,12 @@ onMounted(async () => {
         <el-divider style="margin: 5px 0"></el-divider>
 
         <div style="display: flex; justify-content: space-between; align-items: center;">
+          <el-text>授课教师</el-text>
+          <el-text>{{ course.teacherName }}</el-text>
+        </div>
+        <el-divider style="margin: 5px 0"></el-divider>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
           <el-text>成绩</el-text>
           <el-text :style="{color:course.score == null?'orange':(course.score < 60?'red':'')}">
             {{ course.score == null ? "暂无成绩" : course.score }}
@@ -61,15 +63,15 @@ onMounted(async () => {
         </div>
         <el-divider style="margin: 5px 0"></el-divider>
 
-        <div v-if="course.courseType == '1'"
+        <div v-if="course.courseType == 1"
              style="display: flex; justify-content: space-between; align-items: center;">
           <el-text>所属专业</el-text>
           <el-text>{{ course.courseMajor }}</el-text>
         </div>
-        <el-divider v-if="course.courseType == '1'" style="margin: 5px 0"></el-divider>
+        <el-divider v-if="course.courseType == 1" style="margin: 5px 0"></el-divider>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <el-text>课程类型</el-text>
-          <el-text>{{ course.courseType == "1" ? "必修" : "选修" }}</el-text>
+          <el-text>{{ course.courseType == 1 ? '必修' : '选修' }}</el-text>
         </div>
         <el-divider style="margin: 5px 0"></el-divider>
       </el-card>
@@ -82,14 +84,5 @@ onMounted(async () => {
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
-}
-
-.card-course-fail {
-  box-shadow: red 0 0 10px;
-}
-
-.card-course-fail:hover {
-  box-shadow: red 0 0 10px;
-
 }
 </style>

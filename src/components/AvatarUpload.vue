@@ -9,10 +9,10 @@
       :on-exceed="handleExceed"
       :on-success="handleAvatarSuccess"
       :show-file-list="false"
-      style="display:flex;justify-content: center"
+      style="display:flex;justify-content: center;margin-top: 20px"
   >
     <template #trigger>
-      <el-button type="primary">选择头像</el-button>
+      <el-button plain type="primary">选择头像</el-button>
     </template>
   </el-upload>
 </template>

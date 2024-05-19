@@ -39,6 +39,28 @@ export interface TeacherCourse {
     typeId: number,
 }
 
+export interface StudentCourse {
+    courseId: number,
+    courseMajor: string,
+    courseName: string,
+    courseType: number,
+    score: number,
+    teacherName: string,
+}
+
+export interface StudentScore {
+    "sno": number,
+    "name": string,
+    "courseId": number,
+    "courseName": string,
+    "teacher": string,
+    "score": number,
+    "mid": number,
+    "majorName": string,
+    "classId": number,
+    "className": string
+}
+
 /** -------------------------------------------------------------------------------------------------------------------
  *  store 中使用的类型
  */
@@ -68,7 +90,7 @@ export interface TeacherInfo {
 export interface AdminInfo {
     adminId: string,
     name: string,
-    email: sring,
+    email: string,
     phone: string,
     logged: boolean,
     reset: any
