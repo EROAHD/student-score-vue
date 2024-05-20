@@ -54,10 +54,15 @@ async function getCourseCount() {
 
 }
 
-onMounted(() => {
+function run() {
   getUserCount()
   getCourseCount()
   getScoreCount()
+}
+
+onMounted(() => {
+  run()
+  setInterval(run, 5000);
 })
 
 

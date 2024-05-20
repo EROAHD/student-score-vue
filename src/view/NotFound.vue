@@ -50,8 +50,22 @@ p {
   margin: 10px 0;
 }
 
+
 button {
   margin: auto;
+  padding: 10px 20px;
+  height: fit-content;
+  line-height: 10px;
+  background-color: rgba(136, 236, 204, 0.4);
+  border-radius: 5px;
+  display: block;
+  /*margin: 10px 0;*/
+  box-shadow: 0 0 6px;
+  user-select: none;
+
 }
 
+button:active {
+  box-shadow: 0 0 6px inset;
+}
 </style>

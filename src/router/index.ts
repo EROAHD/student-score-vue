@@ -127,6 +127,11 @@ const router = createRouter({
                 path: '/notfound',
                 name: "NotFound",
                 component: NotFound
+            },
+            {
+                path: '/:pathMatch(.*)*',
+                name: 'NotFound',
+                component: NotFound
             }
         ]
     }
@@ -137,6 +142,12 @@ router.beforeEach((to, _, next) => {
     let token = localStorage.getItem("token")
     let tokenExpiration = localStorage.getItem("tokenExpiration");
     let userType = localStorage.getItem("userType")
+
+    if (token && tokenExpiration && userType && to.path.toLowerCase() === '/login') {
+        next(`/${userType}/home`)
+        return
+    }
+
     if (to.path === '/login' || to.path === '/notfound') {
         next()
         return
@@ -148,6 +159,7 @@ router.beforeEach((to, _, next) => {
         return
     }
 
+
     if (to.path.toLowerCase() === `/${userType}/` || to.path === '/') {
         next(`/${userType}/home`)
         return
@@ -157,7 +169,6 @@ router.beforeEach((to, _, next) => {
         next('/notfound')
         return
     }
-
     next()
 })
 

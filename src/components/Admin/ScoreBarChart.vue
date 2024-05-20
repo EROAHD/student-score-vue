@@ -61,8 +61,8 @@ const barChartOptions = computed(() => ({
 .chart {
   background: white;
   border-radius: 10px;
-  width: 50%;
-  height: 350px;
+  width: calc(100% - 20px);
+  height: calc(50vh - 20px);
   margin: 10px;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }

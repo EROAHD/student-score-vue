@@ -64,7 +64,7 @@ const option = computed(() => ({
   background: white;
   border-radius: 10px;
   width: 50%;
-  height: 250px;
+  height: calc(50vh - 90px);
   margin: 10px;
   transition: box-shadow 0.3s ease, transform 0.3s ease; /* 添加过渡动画 */
 }

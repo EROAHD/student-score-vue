@@ -56,12 +56,16 @@ function showAddMenu() {
 // 通过bannerId删除banner
 async function deleteBanner(scope) {
   if (scope.row.bannerId) {
-    let {data} = await request.delete(`/banner/${scope.row.bannerId}`)
-    console.log(data)
-    console.log(scope.row.bannerId)
-    if (data.code == 200) {
-      ElMessage.success("删除成功")
-      await getAllBanners()
+    if (banners.length === 1) {
+      ElMessage.error("至少保留一个轮播图")
+    } else {
+      let {data} = await request.delete(`/banner/${scope.row.bannerId}`)
+      console.log(data)
+      console.log(scope.row.bannerId)
+      if (data.code == 200) {
+        ElMessage.success("删除成功")
+        await getAllBanners()
+      }
     }
   } else {
     ElMessage.error("删除失败")
@@ -161,7 +165,6 @@ async function submitNewBanner() {
         </el-form-item>
         <!--        -->
       </el-form>
-      {{ banner }}
     </el-dialog>
     <!--    -->
     <!--    -->
