@@ -6,9 +6,12 @@
 import {use} from 'echarts/core';
 import {CanvasRenderer} from 'echarts/renderers';
 import {PieChart} from 'echarts/charts';
-import {LegendComponent, TitleComponent, TooltipComponent,} from 'echarts/components';
+import {LegendComponent, TitleComponent, TooltipComponent} from 'echarts/components';
 import VChart, {THEME_KEY} from 'vue-echarts';
-import {provide, ref} from 'vue';
+import {computed, defineProps, provide} from 'vue';
+
+const props = defineProps(["courseCountList"]);
+
 
 use([
   CanvasRenderer,
@@ -20,7 +23,7 @@ use([
 
 provide(THEME_KEY, 'light');
 
-const option = ref({
+const option = computed(() => ({
   title: {
     text: '课程统计',
     left: 'center',
@@ -41,8 +44,8 @@ const option = ref({
       radius: '55%',
       center: ['50%', '60%'],
       data: [
-        {value: 335, name: '必修'},
-        {value: 310, name: '选修'},
+        {value: props.courseCountList[0], name: '必修'},
+        {value: props.courseCountList[1], name: '选修'},
       ],
       emphasis: {
         itemStyle: {
@@ -53,7 +56,7 @@ const option = ref({
       },
     },
   ],
-});
+}));
 </script>
 
 <style lang="css" scoped>

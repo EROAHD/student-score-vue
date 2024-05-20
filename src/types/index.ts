@@ -35,7 +35,7 @@ export interface TeacherCourse {
     cid: number,
     name: string,
     mid: string,
-    tno: number,
+    majorName: string,
     typeId: number,
 }
 

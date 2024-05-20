@@ -37,10 +37,10 @@ function imageClicked(bannerUrl: string) {
     <el-carousel-item v-for="banner in banners">
       <el-row type="flex" justify="center" align="middle">
         <div @click="imageClicked(banner.bannerUrl)">
-          <el-image v-if="banner.bannerType == 1" style="height: 300px" :src="banner.filePath" fit="scale-down"/>
-          <el-image v-if="banner.bannerType == 0" style="height: 300px"
+          <el-image v-if="banner.bannerType == 1" style="height: 300px"
                     :src="`${request.defaults.baseURL}/${banner.filePath}`"
                     fit="scale-down"/>
+          <el-image v-if="banner.bannerType == 0" style="height: 300px" :src="banner.filePath" fit="scale-down"/>
         </div>
       </el-row>
     </el-carousel-item>

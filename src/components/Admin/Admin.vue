@@ -14,7 +14,7 @@ let adminInfo: AdminInfo = userStore.adminInfo;
 
 console.log(adminInfo)
 
-async function getStudentInfo() {
+async function getAdminInfo() {
   let {data} = await request.get("/admin/info")
   if (data.code == 200) {
     Object.assign(adminInfo, data.data)
@@ -35,7 +35,7 @@ async function getAvatar() {
 }
 
 onMounted(() => {
-  getStudentInfo()
+  getAdminInfo()
   getAvatar()
 })
 
@@ -44,10 +44,10 @@ onMounted(() => {
 <template>
   <div class="studentRoot">
     <el-row>
-      <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">
+      <el-col :sm="6" :md="4" :lg="3" :xl="1">
         <navbar></navbar>
       </el-col>
-      <el-col :xs="16" :sm="18" :md="20" :lg="21" :xl="9">
+      <el-col :sm="18" :md="20" :lg="21" :xl="9">
         <content></content>
       </el-col>
     </el-row>

@@ -51,7 +51,7 @@ onMounted(async () => {
 
         <div v-if="course.typeId == 1" style="display: flex; justify-content: space-between; align-items: center;">
           <el-text>所属专业</el-text>
-          <el-text>{{ course.mid }}</el-text>
+          <el-text>{{ course.majorName }}</el-text>
         </div>
         <el-divider v-if="course.typeId == 1" style="margin: 5px 0"></el-divider>
         <div style="display: flex; justify-content: space-between; align-items: center;">
