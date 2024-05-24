@@ -2,6 +2,10 @@
 /*
 * 定义banner类型
 */
+import {onMounted, reactive} from "vue";
+import request from "../../request";
+import ScoreBarChart from "../Admin/ScoreBarChart.vue";
+
 export interface Banner {
   "bannerId": string,
   "bannerType": number,
@@ -10,10 +14,6 @@ export interface Banner {
 }
 
 //
-
-
-import {onMounted, reactive} from "vue";
-import request from "../../request";
 
 let banners: Banner[] = reactive<Banner[]>([])
 onMounted(async () => {
@@ -30,6 +30,8 @@ function imageClicked(bannerUrl: string) {
   window.open(bannerUrl, "_blank")
 }
 
+let scoreCountList = reactive([1,20,60,90])
+
 </script>
 
 <template>
@@ -45,6 +47,7 @@ function imageClicked(bannerUrl: string) {
       </el-row>
     </el-carousel-item>
   </el-carousel>
+  <score-bar-chart :scoreCountList="scoreCountList"></score-bar-chart>
 </template>
 
 <style scoped>
